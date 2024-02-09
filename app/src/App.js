@@ -40,29 +40,29 @@ function App() {
         // });
         // console.log(sessionSigs);
 
-        const litActionCode = `
-          (async () => {
-            const toContract = "0x004B14279f1840A20E36B7b1b7EdD7dDEA780c10";
-            const abi = [{"inputs":[{"internalType":"string","name":"initialIpfsCid","type":"string"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ipfsCid","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"newIpfsCid","type":"string"}],"name":"updateIpfsCid","outputs":[],"stateMutability":"nonpayable","type":"function"}];
-            const contract = new ethers.Contract(toContract, abi);
-            const rawTxn = await contract.populateTransaction.ipfsCid();
-            const txn = ethers.utils.serializeTransaction(rawTxn);
-            const chain = "goerli";
+        // const litActionCode = `
+        //   (async () => {
+        //     const toContract = "0x004B14279f1840A20E36B7b1b7EdD7dDEA780c10";
+        //     const abi = [{"inputs":[{"internalType":"string","name":"initialIpfsCid","type":"string"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"ipfsCid","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"newIpfsCid","type":"string"}],"name":"updateIpfsCid","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+        //     const contract = new ethers.Contract(toContract, abi);
+        //     const rawTxn = await contract.populateTransaction.ipfsCid();
+        //     const txn = ethers.utils.serializeTransaction(rawTxn);
+        //     const chain = "goerli";
         
-            const res = await Lit.Actions.callContract({
-              chain,
-              txn
-            });
+        //     const res = await Lit.Actions.callContract({
+        //       chain,
+        //       txn
+        //     });
         
-            const decodedResult = contract.interface.decodeFunctionResult("ipfsCid", res)[0].toString();
-            const _ = await Lit.Actions.call({ ipfsId: decodedResult, params });
-        })();
-        `;
+        //     const decodedResult = contract.interface.decodeFunctionResult("ipfsCid", res)[0].toString();
+        //     const _ = await Lit.Actions.call({ ipfsId: decodedResult, params });
+        // })();
+        // `;
 
         await litAuthClient.litNodeClient.connect();
         const signatures = await provider.litNodeClient.executeJs({
-          code: litActionCode,
-          // ipfsId: 'QmRv5JAxLbJ4vRnQtQqY1CHCXJnxRRe2Ge9CSHwdcySZKr',
+          // code: litActionCode,
+          ipfsId: 'QmRv5JAxLbJ4vRnQtQqY1CHCXJnxRRe2Ge9CSHwdcySZKr',
           // sessionSigs,
           authSig: await checkAndSignAuthMessage({ chain: 'ethereum', nonce: litAuthClient.litNodeClient.getLatestBlockhash() }),
           authMethods: [authMethod],
