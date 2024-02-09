@@ -13,14 +13,16 @@ function App() {
         relayApiKey: '<Your Lit Relay Server API Key>',
       },
     });
-    litAuthClient.initProvider(ProviderType.Google, {
+    // litAuthClient.initProvider(ProviderType.Google, {
+    litAuthClient.initProvider(ProviderType.Discord, {
       redirectUri,
     });
 
     (async () => {
       if (isSignInRedirect(redirectUri)) {
         const provider = litAuthClient.getProvider(
-          ProviderType.Google,
+          // ProviderType.Google,
+          ProviderType.Discord,
         );
 
         // Get auth method object that has the OAuth token from redirect callback
@@ -86,13 +88,15 @@ function App() {
         relayApiKey: '<Your Lit Relay Server API Key>',
       },
     });
-    litAuthClient.initProvider(ProviderType.Google, {
+    // litAuthClient.initProvider(ProviderType.Google, {
+    litAuthClient.initProvider(ProviderType.Discord, {
       redirectUri: 'http://localhost:3000',
     });
     // Begin login flow with Google
     (async () => {
       const provider = litAuthClient.getProvider(
-        ProviderType.Google
+        // ProviderType.Google
+        ProviderType.Discord
       );
       await provider.signIn();
     })();
@@ -100,7 +104,8 @@ function App() {
 
   return (
     <div className='App'>
-      <button onClick={authWithGoogle}>Auth With Google</button>
+      {/* <button onClick={authWithGoogle}>Auth With Google</button> */}
+      <button onClick={authWithGoogle}>Auth With Discord</button>
     </div>
   );
 }
